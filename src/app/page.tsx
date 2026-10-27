@@ -1263,24 +1263,18 @@ export default function Home() {
       <footer className={styles.officialFooter}>
         <div className={styles.footerMain}>
           <div className={styles.footerBrand}>
-            <div className={styles.footerLogo}>
-              <Image
-                src="/nexplora-logo.png"
-                alt="Nexplora Logo"
-                width={190}
-                height={67}
-                style={{ width: "auto", height: "54px", objectFit: "contain", background: "#ffffff", borderRadius: "8px", padding: "6px 12px" }}
-              />
-            </div>
-            <p className={styles.footerDescText} style={{ marginTop: "12px" }}>
-              A Business Unit of Fameera Travel. Inspiring students and academic leaders
-              through direct experiential learning journeys across global destinations since 2015.
-            </p>
+            <Image
+              src="/nexplora-footer-logo-transparent.png"
+              alt="Nexplora - Experiential learning partner"
+              width={260}
+              height={108}
+              style={{ width: "auto", height: "82px", objectFit: "contain", display: "block" }}
+            />
           </div>
 
           <div className={styles.footerContactCol}>
             <h3 className={styles.footerContactTitle}>
-              LET'S CREATE THE NEXT LEARNING JOURNEY
+              LET&apos;S CREATE THE NEXT LEARNING JOURNEY
             </h3>
             <ul className={styles.footerContactList}>
               <li>
@@ -1320,7 +1314,7 @@ export default function Home() {
         <div className={styles.footerDivider} />
 
         <div className={styles.footerBottom}>
-          <p>© NEXPLORA • Experiential Learning Partner. All rights reserved.</p>
+          <p>© NEXPLORA • Experiential Learning Partner</p>
         </div>
       </footer>
 

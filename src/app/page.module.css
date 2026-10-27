@@ -1993,67 +1993,24 @@
 
 /* ===== OFFICIAL FOOTER ===== */
 .officialFooter {
-  background: #081226;
-  padding: 80px 7% 32px;
+  background: #071738;
+  padding: 56px 7% 24px;
   color: #ffffff;
 }
 
 .footerMain {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 48px;
-  margin-bottom: 56px;
+  gap: 40px;
 }
 
 .footerBrand {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-width: 440px;
-}
-
-.footerLogo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.owlIconWrapper {
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-}
-
-.owlBadge {
-  font-size: 38px;
-  line-height: 1;
-}
-
-.footerLogoText {
-  font-size: clamp(38px, 4vw, 54px);
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.5px;
-}
-
-.footerLogoO {
-  color: #ff7a1a;
-}
-
-.footerTagline {
-  font-size: 13px;
-  color: #cbd5e1;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-}
-
-.footerDescText {
-  font-size: 14px;
-  color: #94a3b8;
-  line-height: 1.6;
-  margin-top: 8px;
+  align-items: flex-start;
 }
 
 .footerContactCol {
@@ -2061,67 +2018,71 @@
 }
 
 .footerContactTitle {
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 13.5px;
+  font-weight: 700;
   color: #00a2e8;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .footerContactList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 
 .contactItemLink {
   display: flex;
   align-items: center;
-  gap: 14px;
-  color: #cbd5e1;
-  font-size: 15px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  gap: 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .contactItemLink:hover {
   color: #00a2e8;
-  transform: translateX(4px);
 }
 
 .contactItemAddress {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  color: #cbd5e1;
-  font-size: 15px;
-  line-height: 1.5;
+  gap: 12px;
+  color: #ffffff;
+  font-size: 13.5px;
+  line-height: 1.45;
 }
 
 .contactCircleIcon {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  color: #071738;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12.5px;
   flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
 }
 
 .footerDivider {
   width: 100%;
-  height: 1px;
-  background: rgba(0, 162, 232, 0.3);
-  margin-bottom: 24px;
+  height: 1.5px;
+  background: #00a2e8;
+  margin-top: 36px;
+  margin-bottom: 18px;
 }
 
 .footerBottom {
-  font-size: 12.5px;
-  color: #94a3b8;
-  text-align: center;
+  font-size: 11.5px;
+  color: #8ba0b8;
+  text-align: left;
 }
 
 /* ===== MODAL / LIGHTBOX INTERAKTIF (BUKA-TUTUP GAMBAR PENUH) ===== */
