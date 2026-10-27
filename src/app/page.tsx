@@ -326,11 +326,15 @@ export default function Home() {
     <>
       {/* ===== HEADER NAVIGATION ===== */}
       <header className={styles.nav}>
-        <a href="#" className={styles.logo} id="logo">
-          <span className={styles.logoText}>
-            nexpl<span className={styles.logoO}>o</span>ra
-          </span>
-          <span className={styles.logoTag}>experiential learning partner</span>
+        <a href="#" className={styles.logoLink} id="logo" aria-label="Nexplora Home">
+          <Image
+            src="/nexplora-logo-transparent.png"
+            alt="Nexplora - Experiential Learning Partner"
+            width={175}
+            height={62}
+            priority
+            style={{ width: "auto", height: "52px", objectFit: "contain", display: "block" }}
+          />
         </a>
 
         {/* Desktop Menu */}
@@ -624,12 +628,13 @@ export default function Home() {
           <div className={styles.aboutText}>
             <h2 className={styles.aboutTitle}>
               About
-              <span className={styles.logo}>
-                <span className={styles.logoText}>
-                  nexpl<span className={styles.logoO}>o</span>ra
-                </span>
-                <span className={styles.logoTag}>experiential learning partner</span>
-              </span>
+              <Image
+                src="/nexplora-logo-transparent.png"
+                alt="Nexplora"
+                width={160}
+                height={56}
+                style={{ width: "auto", height: "44px", objectFit: "contain", verticalAlign: "middle", marginLeft: "10px" }}
+              />
             </h2>
             <h3 className={styles.aboutSub}>We Are More Than a Travel Provider</h3>
             <p>
@@ -842,12 +847,13 @@ export default function Home() {
           <div className={styles.whyText}>
             <h2 className={styles.aboutTitle}>
               Why
-              <span className={styles.logo}>
-                <span className={styles.logoText}>
-                  nexpl<span className={styles.logoO}>o</span>ra
-                </span>
-                <span className={styles.logoTag}>experiential learning partner</span>
-              </span>
+              <Image
+                src="/nexplora-logo-transparent.png"
+                alt="Nexplora"
+                width={160}
+                height={56}
+                style={{ width: "auto", height: "44px", objectFit: "contain", verticalAlign: "middle", marginLeft: "10px" }}
+              />
             </h2>
             <h3 className={styles.aboutSub}>Because Every Journey Should Have a Purpose</h3>
             <p>
@@ -899,10 +905,13 @@ export default function Home() {
               <h2 className={styles.programMainTitle}>Program</h2>
             </div>
             <div className={styles.logoLight}>
-              <span className={styles.logoTextLight}>
-                nexpl<span className={styles.logoO}>o</span>ra
-              </span>
-              <span className={styles.logoTagLight}>Experiential learning partner</span>
+              <Image
+                src="/nexplora-logo.png"
+                alt="Nexplora Logo"
+                width={165}
+                height={58}
+                style={{ width: "auto", height: "46px", objectFit: "contain", background: "#ffffff", borderRadius: "8px", padding: "4px 10px", display: "block" }}
+              />
             </div>
           </div>
 
@@ -1255,15 +1264,15 @@ export default function Home() {
         <div className={styles.footerMain}>
           <div className={styles.footerBrand}>
             <div className={styles.footerLogo}>
-              <div className={styles.owlIconWrapper}>
-                <span className={styles.owlBadge}>🦉</span>
-              </div>
-              <span className={styles.footerLogoText}>
-                nexpl<span className={styles.footerLogoO}>o</span>ra
-              </span>
+              <Image
+                src="/nexplora-logo.png"
+                alt="Nexplora Logo"
+                width={190}
+                height={67}
+                style={{ width: "auto", height: "54px", objectFit: "contain", background: "#ffffff", borderRadius: "8px", padding: "6px 12px" }}
+              />
             </div>
-            <span className={styles.footerTagline}>Experiential learning partner</span>
-            <p className={styles.footerDescText}>
+            <p className={styles.footerDescText} style={{ marginTop: "12px" }}>
               A Business Unit of Fameera Travel. Inspiring students and academic leaders
               through direct experiential learning journeys across global destinations since 2015.
             </p>
