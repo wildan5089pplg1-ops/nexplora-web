@@ -1268,7 +1268,7 @@ export default function Home() {
               alt="Nexplora - Experiential learning partner"
               width={260}
               height={108}
-              style={{ width: "auto", height: "82px", objectFit: "contain", display: "block" }}
+              style={{ width: "auto", height: "54px", objectFit: "contain", display: "block" }}
             />
           </div>
 
