@@ -241,6 +241,25 @@ const partners = [
   "Muhammadiyah Gresik",
 ];
 
+const faqData = [
+  {
+    q: "Apa program ini bisa disesuaikan dengan kebutuhan sekolah?",
+    a: "Ya, setiap program NEXPLORA dirancang secara kustom sesuai kurikulum sekolah, profil siswa, serta target capaian pembelajaran (learning outcomes) yang diharapkan institusi.",
+  },
+  {
+    q: "Berapa durasi rata-rata kegiatan trip edukasi?",
+    a: "Durasi program bervariasi antara 4 hingga 8 hari tergantung destinasi (Malaysia, Singapore, atau destinasi global lainnya) dan kedalaman materi field study yang diinginkan.",
+  },
+  {
+    q: "Apakah ada pendampingan dan asuransi selama program?",
+    a: "Pasti. Setiap delegasi didampingi oleh fasilitator dan tour manager berpengalaman, lengkap dengan asuransi perjalanan internasional serta standar keamanan 24/7.",
+  },
+  {
+    q: "Bagaimana cara memulai kemitraan dengan Nexplora?",
+    a: "Cukup hubungi tim kami melalui tombol konsultasi atau WhatsApp. Kami akan menjadwalkan sesi diskusi awal untuk merancang proposal rencana perjalanan sekolah Anda.",
+  },
+];
+
 export default function Home() {
   // ===== HERO INTERACTIVE PHOTO STATES =====
   const [heroPhotoOpen, setHeroPhotoOpen] = useState<boolean>(false);
@@ -258,6 +277,9 @@ export default function Home() {
     prepare: false,
     connect: false,
   });
+
+  // ===== FAQ ACCORDION STATE =====
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   // Mobile drawer state
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
@@ -941,14 +963,19 @@ export default function Home() {
                 Indonesia maupun luar negeri.
               </p>
 
-              {/* Interactive Open/Close Toggle Button */}
-              <button
-                type="button"
-                className={styles.programToggleBtn}
-                onClick={() => toggleProgram("explore")}
-              >
-                {expandedPrograms.explore ? "▲ Hide Program Details" : "▼ View Curriculum & Activities"}
-              </button>
+              {/* Interactive Action Buttons */}
+              <div className={styles.programBtnRow}>
+                <a href="#explore-detail" className={styles.programDetailJumpLink}>
+                  Detail Lengkap ↓
+                </a>
+                <button
+                  type="button"
+                  className={styles.programToggleBtn}
+                  onClick={() => toggleProgram("explore")}
+                >
+                  {expandedPrograms.explore ? "▲ Ringkas" : "▼ Silabus"}
+                </button>
+              </div>
 
               {/* Collapsible Content */}
               {expandedPrograms.explore && (
@@ -992,14 +1019,19 @@ export default function Home() {
                 luar negeri.
               </p>
 
-              {/* Interactive Open/Close Toggle Button */}
-              <button
-                type="button"
-                className={styles.programToggleBtn}
-                onClick={() => toggleProgram("prepare")}
-              >
-                {expandedPrograms.prepare ? "▲ Hide Program Details" : "▼ View Curriculum & Activities"}
-              </button>
+              {/* Interactive Action Buttons */}
+              <div className={styles.programBtnRow}>
+                <a href="#prepare-detail" className={styles.programDetailJumpLink}>
+                  Detail Lengkap ↓
+                </a>
+                <button
+                  type="button"
+                  className={styles.programToggleBtn}
+                  onClick={() => toggleProgram("prepare")}
+                >
+                  {expandedPrograms.prepare ? "▲ Ringkas" : "▼ Silabus"}
+                </button>
+              </div>
 
               {/* Collapsible Content */}
               {expandedPrograms.prepare && (
@@ -1043,14 +1075,19 @@ export default function Home() {
                 pendidikan lintas negara.
               </p>
 
-              {/* Interactive Open/Close Toggle Button */}
-              <button
-                type="button"
-                className={styles.programToggleBtn}
-                onClick={() => toggleProgram("connect")}
-              >
-                {expandedPrograms.connect ? "▲ Hide Program Details" : "▼ View Curriculum & Activities"}
-              </button>
+              {/* Interactive Action Buttons */}
+              <div className={styles.programBtnRow}>
+                <a href="#connect-detail" className={styles.programDetailJumpLink}>
+                  Detail Lengkap ↓
+                </a>
+                <button
+                  type="button"
+                  className={styles.programToggleBtn}
+                  onClick={() => toggleProgram("connect")}
+                >
+                  {expandedPrograms.connect ? "▲ Ringkas" : "▼ Silabus"}
+                </button>
+              </div>
 
               {/* Collapsible Content */}
               {expandedPrograms.connect && (
@@ -1071,189 +1108,323 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== THOUGHTFUL VALUE SECTION ===== */}
-        <section id="value" className={styles.thoughtfulSection}>
-          <div className={styles.thoughtfulGrid}>
-            <div className={styles.thoughtfulLeft}>
-              <span className={styles.thoughtfulEyebrow}>
-                A THOUGHTFUL PARTNER FOR EVERY STEP
-              </span>
-              <h2 className={styles.thoughtfulHeading}>
-                Purposeful journeys.
-                <br />
-                Meaningful outcomes.
-              </h2>
-              <p className={styles.thoughtfulSubtext}>
-                Since 2015, NEXPLORA has approached education travel as more
-                than a destination—it is an opportunity to learn, grow and connect.
+        {/* ===== 1. EXPLORE DETAIL SECTION ===== */}
+        <section id="explore-detail" className={styles.exploreDetailSection}>
+          <div className={styles.exploreHeader}>
+            <div className={styles.exploreHeaderText}>
+              <span className={styles.exploreEyebrow}>EXPLORE</span>
+              <h2 className={styles.exploreTitle}>Layanan Kunjungan Edukasi Luar Negeri</h2>
+              <p className={styles.exploreDesc}>
+                Paket dirancang sebagai sebuah <em>thematic learning</em> yang lengkap, mengkombinasikan 3 unsur utama: <strong>Aktivitas, Edukasi, dan Fasilitasi Mandiri</strong>.
               </p>
             </div>
+            <div className={styles.exploreLogo}>
+              <Image
+                src="/nexplora-logo-transparent.png"
+                alt="Nexplora"
+                width={160}
+                height={50}
+                style={{ width: "auto", height: "42px", objectFit: "contain" }}
+              />
+            </div>
+          </div>
 
-            <div className={styles.thoughtfulCard}>
-              {thoughtfulValues.map((val) => (
-                <div key={val.title} className={styles.thoughtfulItem}>
-                  <h3 className={styles.thoughtfulItemTitle}>{val.title}</h3>
-                  <p className={styles.thoughtfulItemDesc}>{val.desc}</p>
+          <div className={styles.exploreCardsGrid}>
+            {/* Card 1 */}
+            <article className={styles.exploreCard}>
+              <div className={styles.exploreCardImgWrapper}>
+                <Image
+                  src="/explore-immersion.jpg"
+                  alt="Learning Immersion - Water ripple representing fresh knowledge impact"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  className={styles.exploreCardImg}
+                />
+              </div>
+              <div className={styles.exploreCardBody}>
+                <h3 className={styles.exploreCardNumTitle}>01 — Learning Immersion</h3>
+                <h4 className={styles.exploreCardSub}>Pengalaman Belajar dan Interaksi Langsung</h4>
+                <p className={styles.exploreCardText}>
+                  Aktivitas dirancang agar peserta dapat merasakan langsung pengalaman belajar di setiap universitas, lembaga riset, komunitas masyarakat setempat melalui: hands-on workshop, pendampingan, diskusi, serta pembelajaran lapangan aktif.
+                </p>
+              </div>
+            </article>
+
+            {/* Card 2 */}
+            <article className={styles.exploreCard}>
+              <div className={styles.exploreCardImgWrapper}>
+                <Image
+                  src="/explore-journey.jpg"
+                  alt="Thematic Learning Journey - Winding road across lush hills"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  className={styles.exploreCardImg}
+                />
+              </div>
+              <div className={styles.exploreCardBody}>
+                <h3 className={styles.exploreCardNumTitle}>02 — Thematic Learning Journey</h3>
+                <h4 className={styles.exploreCardSub}>Perjalanan Belajar Berbasis Tema</h4>
+                <p className={styles.exploreCardText}>
+                  Mengajak peserta mengeksplorasi berbagai tema: sains & teknologi, sejarah & budaya, seni, bisnis & industri, serta isu lingkungan global, melalui kunjungan terstruktur dan pendampingan yang relevan.
+                </p>
+              </div>
+            </article>
+
+            {/* Card 3 */}
+            <article className={styles.exploreCard}>
+              <div className={styles.exploreCardImgWrapper}>
+                <Image
+                  src="/explore-support.jpg"
+                  alt="Seamless On-Ground Support - Team collaborating on table"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  className={styles.exploreCardImg}
+                />
+              </div>
+              <div className={styles.exploreCardBody}>
+                <h3 className={styles.exploreCardNumTitle}>Layanan Pendukung — Seamless On-Ground Support</h3>
+                <h4 className={styles.exploreCardSub}>Pendampingan Perjalanan & Logistik Komprehensif</h4>
+                <p className={styles.exploreCardText}>
+                  Memastikan seluruh aspek logistik dan operasional perjalanan terlaksana secara aman dan nyaman, mencakup akomodasi, transportasi, asuransi perjalanan, konsumsi ramah halal, dan tim support profesional.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        {/* ===== 2. PREPARE DETAIL SECTION ===== */}
+        <section id="prepare-detail" className={styles.prepareDetailSection}>
+          <div className={styles.prepareHeader}>
+            <div className={styles.prepareHeaderText}>
+              <span className={styles.prepareEyebrow}>PREPARE</span>
+              <h2 className={styles.prepareTitle}>Persiapan Masa Depan</h2>
+            </div>
+            <div className={styles.prepareLogo}>
+              <Image
+                src="/nexplora-logo-transparent.png"
+                alt="Nexplora"
+                width={160}
+                height={50}
+                style={{ width: "auto", height: "42px", objectFit: "contain" }}
+              />
+            </div>
+          </div>
+
+          <div className={styles.prepareCardsGrid}>
+            {/* Card 1 */}
+            <div className={styles.prepareCard}>
+              <div className={styles.prepareImgContainer}>
+                <Image
+                  src="/prepare-pathway.jpg"
+                  alt="Future Education Pathway - Graduation cap with coins and books"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  className={styles.prepareImg}
+                />
+              </div>
+              <div className={styles.prepareCardBody}>
+                <h3 className={styles.prepareCardTitle}>01. FUTURE EDUCATION PATHWAY</h3>
+                <h4 className={styles.prepareCardSub}>Perencanaan Pendidikan Masa Depan</h4>
+                <p className={styles.prepareCardDesc}>
+                  Memberikan wawasan komprehensif terkait sistem pendidikan tinggi global, jalur beasiswa, persiapan profil akademik, dan strategi pemilihan jurusan universitas dunia.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className={styles.prepareCard}>
+              <div className={styles.prepareImgContainer}>
+                <Image
+                  src="/prepare-global.jpg"
+                  alt="Global Readiness - International flight connectivity map"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  className={styles.prepareImg}
+                />
+              </div>
+              <div className={styles.prepareCardBody}>
+                <h3 className={styles.prepareCardTitle}>02. GLOBAL READINESS</h3>
+                <h4 className={styles.prepareCardSub}>Kesiapan Menghadapi Dunia Global</h4>
+                <p className={styles.prepareCardDesc}>
+                  Membangun kemandirian, kemampuan adaptasi lintas budaya, kepemimpinan, dan komunikasi global peserta didik agar siap berkiprah di era internasional.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className={styles.prepareCard}>
+              <div className={styles.prepareImgContainer}>
+                <Image
+                  src="/prepare-study.jpg"
+                  alt="Study Abroad Preparation - Student desk with applications and notebook"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 33vw"
+                  className={styles.prepareImg}
+                />
+              </div>
+              <div className={styles.prepareCardBody}>
+                <h3 className={styles.prepareCardTitle}>03. STUDY ABROAD PREPARATION</h3>
+                <h4 className={styles.prepareCardSub}>Persiapan Studi ke Luar Negeri</h4>
+                <p className={styles.prepareCardDesc}>
+                  Membantu calon mahasiswa memahami tahapan aplikasi kampus internasional, persiapan tes bahasa, visa pelajar, dan penyesuaian lingkungan hidup di luar negeri.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== 3. CONNECT DETAIL SECTION ===== */}
+        <section id="connect-detail" className={styles.connectDetailSection}>
+          <div className={styles.connectHeader}>
+            <span className={styles.connectEyebrow}>CONNECT</span>
+            <h2 className={styles.connectTitle}>Membangun Koneksi Global</h2>
+            <p className={styles.connectDesc}>
+              NEXPLORA membantu membangun jejaring pendidikan internasional antara institusi pendidikan di Indonesia dengan institusi pendidikan di luar negeri.
+            </p>
+          </div>
+
+          <div className={styles.connectPillarsGrid}>
+            {/* Pillar 1 */}
+            <div className={styles.connectPillarCard}>
+              <div className={`${styles.hexBadge} ${styles.hexCoral}`}>
+                <span className={styles.hexNum}>01</span>
+                <span className={styles.hexText}>STUDENT<br />EXCHANGE</span>
+              </div>
+              <ul className={styles.pillarBulletList}>
+                <li>Pertukaran pelajar antar institusi</li>
+                <li>Credit transfer assistance</li>
+                <li>Homestay & cultural immersion</li>
+                <li>Integrasi kurikulum & sertifikasi</li>
+              </ul>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className={styles.connectPillarCard}>
+              <div className={`${styles.hexBadge} ${styles.hexAmber}`}>
+                <span className={styles.hexNum}>02</span>
+                <span className={styles.hexText}>TEACHER<br />DEVELOPMENT</span>
+              </div>
+              <ul className={styles.pillarBulletList}>
+                <li>Pelatihan & benchmarking pengajar</li>
+                <li>Observasi kelas & metodologi modern</li>
+                <li>Workshop inovasi pedagogik</li>
+                <li>Sharing best practices kurikulum</li>
+              </ul>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className={styles.connectPillarCard}>
+              <div className={`${styles.hexBadge} ${styles.hexPurple}`}>
+                <span className={styles.hexNum}>03</span>
+                <span className={styles.hexText}>SISTER SCHOOL<br />PARTNERSHIP</span>
+              </div>
+              <ul className={styles.pillarBulletList}>
+                <li>Penandatanganan MoU kemitraan</li>
+                <li>Kolaborasi berkelanjutan antar sekolah</li>
+                <li>Pertukaran materi & program bersama</li>
+                <li>Pengembangan jejaring persaudaraan</li>
+              </ul>
+            </div>
+
+            {/* Pillar 4 */}
+            <div className={styles.connectPillarCard}>
+              <div className={`${styles.hexBadge} ${styles.hexGreen}`}>
+                <span className={styles.hexNum}>04</span>
+                <span className={styles.hexText}>ACADEMIC<br />VISIT</span>
+              </div>
+              <ul className={styles.pillarBulletList}>
+                <li>Kunjungan ke kampus ternama dunia</li>
+                <li>Diskusi fakultas & laboratorium riset</li>
+                <li>Pengenalan fasilitas pendidikan terbaik</li>
+                <li>Konsultasi langsung admission officer</li>
+              </ul>
+            </div>
+
+            {/* Pillar 5 */}
+            <div className={styles.connectPillarCard}>
+              <div className={`${styles.hexBadge} ${styles.hexCyan}`}>
+                <span className={styles.hexNum}>05</span>
+                <span className={styles.hexText}>JOINT LEARNING<br />PROJECT</span>
+              </div>
+              <ul className={styles.pillarBulletList}>
+                <li>Proyek riset kolaboratif siswa</li>
+                <li>Konferensi & forum presentasi bersama</li>
+                <li>Pengayaan materi sains & teknologi</li>
+                <li>Publikasi karya & dokumentasi proyek</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className={styles.connectBottomBanner}>
+            <span>CONNECTING INSTITUTIONS, EMPOWERING GENERATIONS FOR A BRIGHTER GLOBAL FUTURE</span>
+          </div>
+        </section>
+
+        {/* ===== 4. THE VALUE & FAQ SECTION ===== */}
+        <section id="value" className={styles.valueSection}>
+          <div className={styles.valueContainer}>
+            {/* Left Column: The Value & Consultation Box */}
+            <div className={styles.valueLeftCol}>
+              <div className={styles.valueIntro}>
+                <h2 className={styles.valueMainHeading}>THE VALUE</h2>
+                <p className={styles.valueSubtitle}>
+                  Nilai Tambah yang Kami Berikan untuk Setiap Delegasi
+                </p>
+              </div>
+
+              <div id="contact" className={styles.valueCtaCard}>
+                <span className={styles.valueCtaTag}>JOIN OUR NEXT JOURNEY</span>
+                <h3 className={styles.valueCtaHeading}>Your next journey starts here.</h3>
+                <p className={styles.valueCtaDesc}>
+                  Diskusikan tujuan, preferensi destinasi, dan profil delegasi Anda bersama tim konsultan ahli NEXPLORA.
+                </p>
+                <div className={styles.valueCtaActionGroup}>
+                  <a
+                    href="https://wa.me/6281113057890?text=Halo%20Nexplora,%20saya%20tertarik%20untuk%20konsultasi%20program%20edukasi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.valueCtaBtn}
+                    id="btn-value-consultation"
+                  >
+                    💬 Request a Consultation ↗
+                  </a>
+                  <a href="tel:+6281113057890" className={styles.valueCallBtn}>
+                    📞 Direct Call
+                  </a>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ===== PARTNERS SECTION ===== */}
-        <section id="partners" className={styles.partnersSection}>
-          <div className={styles.partnersHeader}>
-            <span className={styles.partnersEyebrow}>
-              TRUST BUILT THROUGH EXPERIENCE
-            </span>
-            <h2 className={styles.partnersHeading}>
-              Education partners, growing together.
-            </h2>
-            <p className={styles.partnersSubtext}>
-              Selected institutions featured in the NEXPLORA proposal
-            </p>
-          </div>
-
-          <div className={styles.partnersStrip}>
-            {partners.map((p) => (
-              <div key={p} className={styles.partnerItem}>
-                <span className={styles.partnerDot}>•</span>
-                <span>{p}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ===== PATHWAYS SECTION ===== */}
-        <section id="pathways" className={styles.pathwaysSection}>
-          <div className={styles.pathwaysHeader}>
-            <span className={styles.pathwaysEyebrow}>
-              A CLEAR NEXT STEP FOR EVERY AUDIENCE
-            </span>
-            <h2 className={styles.pathwaysHeading}>
-              What brings you to NEXPLORA?
-            </h2>
-            <p className={styles.pathwaysSubtext}>
-              Choose the pathway that best matches your goals.
-            </p>
-          </div>
-
-          <div className={styles.pathwaysGrid}>
-            <div className={styles.pathwayCard}>
-              <span className={styles.pathwayTag}>FOR SCHOOLS & UNIVERSITIES</span>
-              <h3 className={styles.pathwayTitle}>Design an education tour</h3>
-              <p className={styles.pathwayDesc}>
-                Build a tailored learning program for your students or institution.
-              </p>
-              <a href="#contact" className={styles.pathwayLink}>
-                Request a program proposal ↗
-              </a>
-            </div>
-
-            <div className={styles.pathwayCard}>
-              <span className={styles.pathwayTag}>FOR STUDENTS & PARENTS</span>
-              <h3 className={styles.pathwayTitle}>Plan overseas study</h3>
-              <p className={styles.pathwayDesc}>
-                Explore education pathways and preparation for studying abroad.
-              </p>
-              <a href="#contact" className={styles.pathwayLink}>
-                Discuss study options ↗
-              </a>
-            </div>
-
-            <div className={`${styles.pathwayCard} ${styles.pathwayCardDark}`}>
-              <span className={styles.pathwayTagDark}>FOR INTERNATIONAL PARTNERS</span>
-              <h3 className={styles.pathwayTitleDark}>Create global connections</h3>
-              <p className={styles.pathwayDescDark}>
-                Explore student exchange and educational collaboration opportunities.
-              </p>
-              <a href="#contact" className={styles.pathwayLinkDark}>
-                Start a partnership ↗
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== FAQ & CONVERSATION SECTION ===== */}
-        <section id="contact" className={styles.conversationSection}>
-          <div className={styles.conversationGrid}>
-            <div className={styles.conversationLeft}>
-              <span className={styles.conversationEyebrow}>
-                LET'S START A CONVERSATION
-              </span>
-              <h2 className={styles.conversationHeading}>
-                Your next journey
-                <br />
-                starts here.
-              </h2>
-              <p className={styles.conversationSubtext}>
-                Tell us your goals, preferred destination and participant profile.
-                <br />
-                Our team can help explore a suitable program.
-              </p>
-              <div className={styles.contactActions}>
-                <a
-                  href="https://wa.me/6281113057890?text=Hello%20Nexplora,%20I%20would%20like%20to%20consult%20about%20an%20educational%20travel%20program"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.consultationBtn}
-                  id="btn-request-consultation"
-                >
-                  💬 Request a Consultation ↗
-                </a>
-                <a href="tel:+6281113057890" className={styles.callDirectBtn}>
-                  📞 Direct Call
-                </a>
               </div>
             </div>
 
-            <div className={styles.faqCard}>
-              <h3 className={styles.faqTitle}>Frequently Asked Questions</h3>
-              <details className={styles.faqItem} open>
-                <summary className={styles.faqQuestion}>
-                  <span>Can programs be customized for our school?</span>
-                  <span className={styles.faqIcon}>+</span>
-                </summary>
-                <p className={styles.faqAnswer}>
-                  Yes, all educational itineraries, themes, learning objectives,
-                  and durations can be tailored specifically to align with your
-                  school's curriculum and student profiles.
-                </p>
-              </details>
-
-              <details className={styles.faqItem}>
-                <summary className={styles.faqQuestion}>
-                  <span>What is included in an education tour?</span>
-                  <span className={styles.faqIcon}>+</span>
-                </summary>
-                <p className={styles.faqAnswer}>
-                  Our comprehensive package covers institutional visits, workshops,
-                  cultural immersions, safe transport, accommodation, guided facilitators,
-                  and certified travel insurance.
-                </p>
-              </details>
-
-              <details className={styles.faqItem}>
-                <summary className={styles.faqQuestion}>
-                  <span>How are safety and participant support handled?</span>
-                  <span className={styles.faqIcon}>+</span>
-                </summary>
-                <p className={styles.faqAnswer}>
-                  We provide dedicated professional tour managers, 24/7 emergency response
-                  protocols, verified safety partners, and halal-friendly dining options.
-                </p>
-              </details>
-
-              <details className={styles.faqItem}>
-                <summary className={styles.faqQuestion}>
-                  <span>Can NEXPLORA assist with overseas study planning?</span>
-                  <span className={styles.faqIcon}>+</span>
-                </summary>
-                <p className={styles.faqAnswer}>
-                  Absolutely. We guide students and parents through destination exploration,
-                  campus admissions requirements, visa consultations, and cultural readiness.
-                </p>
-              </details>
+            {/* Right Column: Interactive Clean FAQ Accordion */}
+            <div className={styles.valueRightCol}>
+              <div className={styles.faqAccordionContainer}>
+                {faqData.map((item, idx) => {
+                  const isOpen = openFaq === idx;
+                  return (
+                    <div
+                      key={item.q}
+                      className={`${styles.faqCardItem} ${isOpen ? styles.faqCardItemOpen : ""}`}
+                    >
+                      <button
+                        type="button"
+                        className={styles.faqCardHeaderBtn}
+                        onClick={() => setOpenFaq(isOpen ? null : idx)}
+                        aria-expanded={isOpen}
+                      >
+                        <span className={styles.faqCardQuestionText}>{item.q}</span>
+                        <span className={styles.faqToggleBadge}>
+                          {isOpen ? "−" : "+"}
+                        </span>
+                      </button>
+                      {isOpen && (
+                        <div className={styles.faqCardAnswerBody}>
+                          <p>{item.a}</p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
