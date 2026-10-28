@@ -126,10 +126,12 @@
 .heroImgFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 20px;
+  max-width: 520px;
+  aspect-ratio: 4 / 5;
+  min-height: 480px;
+  border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 .heroImgCover {
@@ -827,11 +829,11 @@
 .valueBooksFrame {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  max-width: 480px;
+  aspect-ratio: 1 / 1;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(7, 23, 56, 0.08);
-  background: #ffffff;
+  background: transparent;
 }
 
 .valueBooksCover {
@@ -903,7 +905,7 @@
 
 .footerLogoImg {
   width: auto;
-  height: 52px;
+  height: 64px;
   object-fit: contain;
   display: block;
 }

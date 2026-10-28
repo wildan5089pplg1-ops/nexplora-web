@@ -2,12 +2,16 @@
   --navy: #0b1736;
   --navy-2: #13224a;
   --orange: #ff7a1a;
+  --orange-accent: #e06211;
   --salmon: #f4927a;
   --purple: #4b3fb5;
   --ink: #1d1d2b;
   --muted: #5d6275;
   --bg: #ffffff;
   --soft: #f5f6fb;
+  --cream: #faf8f3;
+  --font-heading: var(--font-montserrat), 'Montserrat', sans-serif;
+  --font-body: var(--font-inter), 'Inter', sans-serif;
 }
 
 * {
@@ -22,10 +26,14 @@ html {
 }
 
 body {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-body);
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 a {
