@@ -1,696 +1,569 @@
 'use client';
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
+const navItems = [
+  { href: "#about", label: "About" },
+  { href: "#explore", label: "Explore" },
+  { href: "#prepare", label: "Prepare" },
+  { href: "#connect", label: "Connect" },
+  { href: "#program", label: "Program" },
+  { href: "#value", label: "Value" },
+];
+
 export default function Home() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    const targets = document.querySelectorAll(`.${styles.reveal}`);
+    targets.forEach((target) => observer.observe(target));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <>
+    <div className={styles.page}>
       {/* ===== HEADER NAVIGATION ===== */}
-      <header className={styles.nav}>
-        <a href="#" className={styles.logoLink} id="logo" aria-label="Nexplora Home">
-          <Image
-            src="/nexplora-logo-transparent.png"
-            alt="Nexplora - Experiential Learning Partner"
-            width={180}
-            height={62}
-            priority
-            className={styles.headerLogoImg}
-          />
-        </a>
-
-        {/* Desktop Menu */}
-        <nav className={styles.menu}>
-          <a href="#about" id="nav-about">About</a>
-          <a href="#program" id="nav-program">Program</a>
-          <a href="#value" id="nav-value">Value</a>
-          <a href="#contact" id="nav-contact">Contact</a>
-        </nav>
-
-        <div className={styles.navActions}>
-          <a
-            href="https://wa.me/6281113057890?text=Halo%20Nexplora,%20saya%20tertarik%20untuk%20konsultasi%20program%20edukasi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.konsultasiPillBtn}
-            id="nav-konsultasi"
-          >
-            Konsultasi
+      <header className={styles.siteHeader}>
+        <div className={`${styles.container} ${styles.navBar}`}>
+          <a className={styles.brand} href="#home" aria-label="NEXPLORA Home">
+            <Image
+              src="/nexplora-logo-transparent.png"
+              alt="NEXPLORA - Experiential Learning Partner"
+              width={160}
+              height={55}
+              priority
+              className={styles.brandLogo}
+            />
           </a>
+
           <button
             type="button"
-            className={styles.mobileMenuToggle}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            className={styles.menuBtn}
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Buka navigasi"
+            aria-expanded={menuOpen}
           >
-            {mobileMenuOpen ? "✕" : "☰"}
+            {menuOpen ? "×" : "☰"}
           </button>
-        </div>
-      </header>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className={styles.mobileDrawer}>
-          <nav className={styles.mobileNavList}>
-            <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
-            <a href="#program" onClick={() => setMobileMenuOpen(false)}>Program</a>
-            <a href="#value" onClick={() => setMobileMenuOpen(false)}>Value</a>
-            <a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a>
-            <a
-              href="https://wa.me/6281113057890?text=Halo%20Nexplora,%20saya%20tertarik%20untuk%20konsultasi%20program%20edukasi"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.mobileCta}
-            >
-              Konsultasi WhatsApp ↗
+          <nav className={`${styles.navLinks} ${menuOpen ? styles.open : ""}`}>
+            {navItems.map((item) => (
+              <a key={item.href} href={item.href} onClick={closeMenu}>
+                {item.label}
+              </a>
+            ))}
+            <a className={styles.navCta} href="#contact" onClick={closeMenu}>
+              Konsultasi
             </a>
           </nav>
         </div>
-      )}
+      </header>
 
       <main>
-        {/* ===== HERO SECTION ===== */}
-        <section className={styles.heroSection}>
-          <div className={styles.heroContainer}>
-            <div className={styles.heroTextCol}>
-              <h1 className={styles.heroMainTitle}>
-                LEARNING GOES<br />
-                BEYOND THE<br />
-                CLASSROOM
-              </h1>
-              <p className={styles.heroSubtitle}>
-                We turn journeys into meaningful learning experiences through real-world exploration, cultural exchange, and educational collaboration.
-              </p>
+        {/* ===== HERO ===== */}
+        <section className={styles.hero} id="home">
+          <div className={`${styles.container} ${styles.heroContent}`}>
+            <div className={styles.eyebrow}>Experiential Learning Partner</div>
+            <h1>
+              Learning goes <em>beyond</em> the classroom.
+            </h1>
+            <p>
+              We turn journeys into meaningful learning experiences through
+              real-world exploration, cultural exchange, and educational
+              collaboration.
+            </p>
+            <div className={styles.heroActions}>
+              <a className={`${styles.btn} ${styles.btnPrimary}`} href="#contact">
+                Rencanakan Perjalanan <span>↗</span>
+              </a>
+              <a className={`${styles.btn} ${styles.btnOutline}`} href="#about">
+                Kenali NEXPLORA
+              </a>
             </div>
-
-            <div className={styles.heroImgCol}>
-              <div className={styles.heroImgFrame}>
-                <Image
-                  src="/petronas-delegation-real.jpg"
-                  alt="Nexplora student delegation in front of Petronas Twin Towers, Kuala Lumpur"
-                  fill
-                  priority
-                  sizes="(max-width: 900px) 100vw, 50vw"
-                  className={styles.heroImgCover}
-                />
+            <div className={styles.heroNote}>
+              <div>
+                <strong>Since 2015</strong>
+                Pengalaman perjalanan edukatif
+              </div>
+              <div>
+                <strong>Global</strong>
+                Perspektif dan kolaborasi
+              </div>
+              <div>
+                <strong>Purposeful</strong>
+                Belajar dengan tujuan
               </div>
             </div>
           </div>
         </section>
 
-        {/* ===== ABOUT SECTION ===== */}
-        <section id="about" className={styles.aboutSection}>
-          <div className={styles.aboutContainer}>
-            <div className={styles.aboutTextCol}>
-              <div className={styles.sectionBrandRow}>
-                <h2 className={styles.sectionBrandWord}>About</h2>
-                <Image
-                  src="/nexplora-logo-transparent.png"
-                  alt="Nexplora"
-                  width={155}
-                  height={50}
-                  className={styles.inlineBrandLogo}
-                />
+        {/* ===== ABOUT ===== */}
+        <section className={styles.section} id="about">
+          <div className={`${styles.container} ${styles.introGrid}`}>
+            <div className={styles.introMedia}>
+              <div className={`${styles.introPhoto} ${styles.reveal}`}>
+                <div className={styles.photoTag}>
+                  Learning first.
+                  <br />
+                  Destination follows.
+                </div>
               </div>
-
-              <h3 className={styles.aboutOrangeHeading}>
-                We Are More Than a Travel Provider
-              </h3>
-
-              <p className={styles.aboutLeadText}>
-                NEXPLORA adalah penyedia program experiential learning berbasis studi luar negeri (study tour/field trip) yang didirikan untuk memperluas cakrawala pendidikan generasi muda.
+              <div className={`${styles.introPhotoAlt} ${styles.reveal}`} />
+            </div>
+            <div className={`${styles.introCopy} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>About NEXPLORA</div>
+              <h2>We are more than a travel provider.</h2>
+              <p>
+                NEXPLORA adalah mitra pengalaman belajar bagi sekolah, institusi
+                pendidikan, siswa, dan keluarga yang ingin menghadirkan
+                pembelajaran lebih luas dari ruang kelas.
               </p>
-
-              <p className={styles.aboutDescText}>
-                Dengan pengalaman bertahun-tahun di bidang ini, kami telah memfasilitasi berbagai institusi pendidikan mulai dari sekolah dasar hingga perguruan tinggi dengan program-program yang komprehensif, mencakup aspek akademik, kebudayaan, kepemimpinan, dan sosial.
+              <p>
+                Sebagai unit business dari Fameera Travel, berpengalaman
+                menangani international education trip sejak 2015, kami
+                merancang program yang menghubungkan peserta didik dengan
+                sekolah, universitas, dunia industri, budaya, dan kehidupan
+                masyarakat secara langsung.
               </p>
-
-              <p className={styles.aboutFocusHeader}>
-                Fokus utama dalam setiap program kami mencakup:
-              </p>
-              <ul className={styles.aboutFocusList}>
+              <ul className={styles.checkList}>
                 <li>
-                  <strong>• Learning Objectives:</strong> Program dirancang untuk menjawab tujuan pembelajaran institusi.
+                  Learning Goals — tujuan pembelajaran yang ingin dicapai.
                 </li>
                 <li>
-                  <strong>• Rich Experiences:</strong> Kolaborasi dengan institusi, universitas, dan komunitas lokal terkemuka di destinasi.
+                  Real Experiences — aktivitas dan interaksi yang memberikan
+                  pengalaman nyata.
                 </li>
                 <li>
-                  <strong>• Meaningful Outcomes:</strong> Memastikan setiap peserta memperoleh wawasan, relasi, dan perspektif global yang berguna bagi masa depannya.
+                  Meaningful Outcomes — wawasan, keterampilan, dan refleksi yang
+                  relevan.
                 </li>
               </ul>
-
-              <div className={styles.aboutApproachBox}>
-                <span>Our approach: Learning first, destination follows.</span>
-              </div>
-            </div>
-
-            <div className={styles.aboutImgCol}>
-              <div className={styles.aboutPhotoCard}>
-                <Image
-                  src="/batu-caves-real.jpg"
-                  alt="Delegasi Nexplora di Batu Caves, Malaysia"
-                  fill
-                  sizes="(max-width: 900px) 100vw, 40vw"
-                  className={styles.aboutPhotoCover}
-                />
-              </div>
-              <div className={styles.aboutPhotoCard}>
-                <Image
-                  src="/merlion-real.jpg"
-                  alt="Delegasi Nexplora di Merlion Park, Singapore"
-                  fill
-                  sizes="(max-width: 900px) 100vw, 40vw"
-                  className={styles.aboutPhotoCover}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== WHY SECTION ===== */}
-        <section id="why" className={styles.whySection}>
-          <div className={styles.whyContainer}>
-            <div className={styles.whyImgCol}>
-              <div className={styles.whyWaterfallFrame}>
-                <Image
-                  src="/why.jpg"
-                  alt="Rain Vortex Jewel Changi, Singapore"
-                  fill
-                  sizes="(max-width: 900px) 100vw, 40vw"
-                  className={styles.whyWaterfallCover}
-                />
-              </div>
-            </div>
-
-            <div className={styles.whyTextCol}>
-              <div className={styles.sectionBrandRow}>
-                <h2 className={styles.sectionBrandWord}>Why</h2>
-                <Image
-                  src="/nexplora-logo-transparent.png"
-                  alt="Nexplora"
-                  width={155}
-                  height={50}
-                  className={styles.inlineBrandLogo}
-                />
-              </div>
-
-              <h3 className={styles.whyOrangeHeading}>
-                Because Every Journey Should Have a Purpose
-              </h3>
-
-              <p className={styles.whyLeadText}>
-                Bagi kami, experiential learning bukan sekadar mengajak peserta jalan-jalan ke luar negeri. Lebih dari itu, setiap program dirancang sebagai sebuah proses belajar yang kontekstual, terstruktur, mendalam, dan relevan.
-              </p>
-
-              <p className={styles.whyListHeading}>
-                4 Hal yang membuat kami berbeda:
-              </p>
-
-              <div className={styles.whyPointsStack}>
-                <div className={styles.whyPointItem}>
-                  <strong>1. Learning-driven Itinerary:</strong> Setiap destinasi, kunjungan, workshop, dan aktivitas memiliki tujuan pembelajaran yang jelas dan relevan bagi peserta didik.
-                </div>
-                <div className={styles.whyPointItem}>
-                  <strong>2. Direct Experience:</strong> Belajar secara langsung dari para praktisi, akademisi, figur inspiratif, komunitas lokal, serta lingkungan baru yang membuka wawasan.
-                </div>
-                <div className={styles.whyPointItem}>
-                  <strong>3. Facilitated Reflection:</strong> Peserta tidak hanya melihat dan mengalami, tetapi diajak untuk merefleksikan, mendiskusikan, dan merangkum pembelajaran yang didapat dalam bentuk portofolio perjalanan.
-                </div>
-                <div className={styles.whyPointItem}>
-                  <strong>4. Designed Around the School:</strong> Jadwal, tema, aktivitas, penginapan, dan durasi program disesuaikan dengan kebutuhan serta nilai-nilai sekolah.
-                </div>
-              </div>
-
-              <div className={styles.whyCalloutBanner}>
-                <p>Not your typical tour. Not your typical travel agent.</p>
-                <p>Programs designed around your school.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== PROGRAM OVERVIEW BAR ===== */}
-        <section id="program" className={styles.programBarSection}>
-          <div className={styles.programBarContainer}>
-            <div className={styles.programBarHeader}>
-              <h2 className={styles.programBarTitle}>
-                <span className={styles.programWordCyan}>Program</span>
-                <Image
-                  src="/nexplora-logo-transparent.png"
-                  alt="Nexplora"
-                  width={160}
-                  height={50}
-                  className={styles.inlineProgramLogo}
-                />
-              </h2>
-            </div>
-
-            <div className={styles.programPillarsGrid}>
-              {/* Card 1: EXPLORE */}
-              <a href="#explore-detail" className={styles.programPillarCard}>
-                <div className={styles.programPillarImgWrapper}>
-                  <Image
-                    src="/program-explore.jpg"
-                    alt="Perahu di atas danau alami - Program Explore"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 30vw"
-                    className={styles.programPillarImg}
-                  />
-                </div>
-                <h3 className={styles.programPillarTitle}>EXPLORE</h3>
-                <h4 className={styles.programPillarSub}>Experience Beyond the Classroom</h4>
-                <p className={styles.programPillarDesc}>
-                  Memberikan pengalaman belajar melalui perjalanan edukatif di Indonesia maupun luar negeri.
-                </p>
-              </a>
-
-              {/* Card 2: PREPARE */}
-              <a href="#prepare-detail" className={styles.programPillarCard}>
-                <div className={styles.programPillarImgWrapper}>
-                  <Image
-                    src="/program-prepare.jpg"
-                    alt="Analisis dan persiapan studi - Program Prepare"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 30vw"
-                    className={styles.programPillarImg}
-                  />
-                </div>
-                <h3 className={styles.programPillarTitle}>PREPARE</h3>
-                <h4 className={styles.programPillarSub}>Grow for the Future</h4>
-                <p className={styles.programPillarDesc}>
-                  Mendampingi siswa dan orang tua merencanakan jalur pendidikan ke luar negeri.
-                </p>
-              </a>
-
-              {/* Card 3: CONNECT */}
-              <a href="#connect-detail" className={styles.programPillarCard}>
-                <div className={styles.programPillarImgWrapper}>
-                  <Image
-                    src="/program-connect.jpg"
-                    alt="Dua tangan menyatukan puzzle - Program Connect"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 30vw"
-                    className={styles.programPillarImg}
-                  />
-                </div>
-                <h3 className={styles.programPillarTitle}>CONNECT</h3>
-                <h4 className={styles.programPillarSub}>Build Connections Across Cultures</h4>
-                <p className={styles.programPillarDesc}>
-                  Membuka peluang kemitraan dan kolaborasi antara institusi pendidikan lintas negara.
-                </p>
+              <a
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                href="#program"
+              >
+                Jelajahi Program ↗
               </a>
             </div>
           </div>
         </section>
 
-        {/* ===== 1. EXPLORE DETAIL SECTION ===== */}
-        <section id="explore-detail" className={styles.exploreDetailSection}>
-          <div className={styles.detailContainer}>
-            <div className={styles.detailHeaderSplit}>
-              <div>
-                <h2 className={styles.detailMainOrangeTitle}>EXPLORE</h2>
-                <h3 className={styles.detailDarkSubtitle}>Experience Beyond the Classroom</h3>
-              </div>
-              <div className={styles.detailLogoHolder}>
-                <Image
-                  src="/nexplora-logo-transparent.png"
-                  alt="Nexplora"
-                  width={150}
-                  height={48}
-                  className={styles.detailHeaderLogo}
-                />
-              </div>
-            </div>
-
-            <p className={styles.exploreLeadDesc}>
-              Paket dirancang sebagai sebuah program perjalanan edukasi yang menghubungkan pembelajaran di kelas dengan observasi, eksplorasi, dan interaksi langsung.
-            </p>
-
-            <div className={styles.exploreRowsStack}>
-              {/* Row 1 */}
-              <div className={styles.exploreRowItem}>
-                <div className={styles.exploreRowImgCol}>
-                  <Image
-                    src="/explore-immersion.jpg"
-                    alt="Learning Immersion - Water ripple effect"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 35vw"
-                    className={styles.exploreRowImgCover}
-                  />
-                </div>
-                <div className={styles.exploreRowTextCol}>
-                  <h4 className={styles.exploreRowNumHeading}>01 — Learning Immersion</h4>
-                  <h5 className={styles.exploreRowSubHeading}>Pengalaman Belajar dan Interaksi Langsung</h5>
-                  <p className={styles.exploreRowBodyText}>
-                    Aktivitas dirancang agar peserta dapat merasakan langsung pengalaman belajar di setiap universitas, lembaga riset, komunitas masyarakat setempat melalui: hands-on workshop, pendampingan, diskusi, serta pembelajaran lapangan aktif.
-                  </p>
-                </div>
-              </div>
-
-              {/* Row 2 */}
-              <div className={styles.exploreRowItem}>
-                <div className={styles.exploreRowImgCol}>
-                  <Image
-                    src="/explore-journey.jpg"
-                    alt="Thematic Learning Journey - Winding road across lush hills"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 35vw"
-                    className={styles.exploreRowImgCover}
-                  />
-                </div>
-                <div className={styles.exploreRowTextCol}>
-                  <h4 className={styles.exploreRowNumHeading}>02 — Thematic Learning Journey</h4>
-                  <h5 className={styles.exploreRowSubHeading}>Perjalanan Belajar Berbasis Tema</h5>
-                  <p className={styles.exploreRowBodyText}>
-                    Mengajak siswa mengeksplorasi berbagai tema pembelajaran, seperti budaya, teknologi, bisnis, inovasi, dan keberlanjutan melalui kunjungan dan aktivitas yang dirancang dengan tujuan belajar yang jelas.
-                  </p>
-                </div>
-              </div>
-
-              {/* Row 3 */}
-              <div className={styles.exploreRowItem}>
-                <div className={styles.exploreRowImgCol}>
-                  <Image
-                    src="/explore-support.jpg"
-                    alt="Academic Event Support - Team collaboration"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 35vw"
-                    className={styles.exploreRowImgCover}
-                  />
-                </div>
-                <div className={styles.exploreRowTextCol}>
-                  <h4 className={styles.exploreRowNumHeading}>Layanan Pendukung — Academic Event Support</h4>
-                  <h5 className={styles.exploreRowSubHeading}>Mendampingi delegasi dalam berpartisipasi dalam:</h5>
-                  <p className={styles.exploreRowBodyText}>
-                    Memberikan pendampingan menyeluruh bagi delegasi sekolah dalam berbagai program internasional, mulai dari akomodasi, transportasi, asuransi perjalanan, hingga bimbingan selama di luar negeri.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== 2. PREPARE DETAIL SECTION ===== */}
-        <section id="prepare-detail" className={styles.prepareDetailSection}>
-          <div className={styles.detailContainer}>
-            <div className={styles.detailHeaderSplit}>
-              <div>
-                <h2 className={styles.detailMainOrangeTitle}>PREPARE</h2>
-                <h3 className={styles.detailDarkSubtitle}>Grow for the Future</h3>
-              </div>
-              <div className={styles.detailLogoHolder}>
-                <Image
-                  src="/nexplora-logo-transparent.png"
-                  alt="Nexplora"
-                  width={150}
-                  height={48}
-                  className={styles.detailHeaderLogo}
-                />
-              </div>
-            </div>
-
-            <div className={styles.prepareCardsGrid}>
-              {/* Card 1 */}
-              <div className={styles.prepareDarkCard}>
-                <div className={styles.prepareWhiteImgFrame}>
-                  <Image
-                    src="/prepare-pathway.jpg"
-                    alt="Future Education Pathway - Graduation cap with coins and books"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 30vw"
-                    className={styles.prepareCardImg}
-                  />
-                </div>
-                <h4 className={styles.prepareCardOrangeTitle}>01. FUTURE EDUCATION PATHWAY</h4>
-                <h5 className={styles.prepareCardCyanSub}>Perencanaan Pendidikan Masa Depan</h5>
-                <p className={styles.prepareCardDesc}>
-                  Memberikan wawasan komprehensif mengenai pilihan studi lanjutan, sistem seleksi masuk universitas global, pemetaan minat dan bakat, serta persiapan profil akademik siswa sejak dini.
-                </p>
-              </div>
-
-              {/* Card 2: STUDY ABROAD PREPARATION */}
-              <div className={styles.prepareDarkCard}>
-                <div className={styles.prepareWhiteImgFrame}>
-                  <Image
-                    src="/prepare-study.jpg"
-                    alt="Study Abroad Preparation - Student desk with application papers"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 30vw"
-                    className={styles.prepareCardImg}
-                  />
-                </div>
-                <h4 className={styles.prepareCardOrangeTitle}>03. STUDY ABROAD PREPARATION</h4>
-                <h5 className={styles.prepareCardCyanSub}>Persiapan Studi ke Luar Negeri</h5>
-                <p className={styles.prepareCardDesc}>
-                  Pelatihan intensif bahasa, adaptasi budaya, penulisan essay dan personal statement, persiapan visa pelajar, hingga pembekalan kemandirian hidup di luar negeri.
-                </p>
-              </div>
-
-              {/* Card 3: GLOBAL READINESS */}
-              <div className={styles.prepareDarkCard}>
-                <div className={styles.prepareWhiteImgFrame}>
-                  <Image
-                    src="/prepare-global.jpg"
-                    alt="Global Readiness - International network connectivity map"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 30vw"
-                    className={styles.prepareCardImg}
-                  />
-                </div>
-                <h4 className={styles.prepareCardOrangeTitle}>02. GLOBAL READINESS</h4>
-                <h5 className={styles.prepareCardCyanSub}>Kesiapan Menghadapi Dunia Global</h5>
-                <p className={styles.prepareCardDesc}>
-                  Membangun karakter global, kepemimpinan, kemampuan adaptasi lintas budaya, serta pemahaman isu-isu dunia terkini untuk mencetak generasi yang berdaya saing internasional.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== 3. CONNECT DETAIL SECTION ===== */}
-        <section id="connect-detail" className={styles.connectSection}>
-          <div className={styles.connectContainer}>
-            <div className={styles.connectHeader}>
-              <h2 className={styles.connectOrangeEyebrow}>CONNECT</h2>
-              <h3 className={styles.connectCyanHeading}>Build Connections Across Cultures</h3>
-              <p className={styles.connectLeadText}>
-                NEXPLORA membantu membuka jejaring pendidikan internasional antara institusi pendidikan di Indonesia dengan institusi pendidikan di luar negeri.
+        {/* ===== APPROACH ===== */}
+        <section className={`${styles.section} ${styles.dark}`} id="approach">
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>Our approach</div>
+              <h2>Because every journey should have a purpose.</h2>
+              <p>
+                Perjalanan edukatif yang baik bukan sekadar mengunjungi banyak
+                tempat. Setiap aktivitas perlu memberikan alasan bagi siswa untuk
+                melihat, bertanya, mencoba, berinteraksi, dan memahami.
               </p>
             </div>
-
-            <div className={styles.connectColumnsGrid}>
-              {/* Column 1: STUDENT EXCHANGE */}
-              <div className={styles.connectColumnCard}>
-                <div className={`${styles.hexBadgeWrapper} ${styles.hexRedBorder}`}>
-                  <span className={styles.hexNumber}>01</span>
-                  <span className={styles.hexLabel}>STUDENT<br />EXCHANGE</span>
-                </div>
-                <ul className={styles.connectBulletList}>
-                  <li>• Pertukaran pelajar antar sekolah / universitas</li>
-                  <li>• Learning buddies & student exchange program</li>
-                  <li>• Program homestay & cultural immersion</li>
-                  <li>• Short semester course di universitas mitra</li>
-                </ul>
-              </div>
-
-              {/* Column 2: TEACHER DEVELOPMENT */}
-              <div className={styles.connectColumnCard}>
-                <div className={`${styles.hexBadgeWrapper} ${styles.hexOrangeBorder}`}>
-                  <span className={styles.hexNumber}>02</span>
-                  <span className={styles.hexLabel}>TEACHER<br />DEVELOPMENT</span>
-                </div>
-                <ul className={styles.connectBulletList}>
-                  <li>• Pelatihan & workshop pedagogik untuk guru dan staf</li>
-                  <li>• Observasi kelas & benchmarking metode pembelajaran global</li>
-                  <li>• Short-term professional course untuk guru di luar negeri</li>
-                </ul>
-              </div>
-
-              {/* Column 3: SISTER SCHOOL PARTNERSHIP */}
-              <div className={styles.connectColumnCard}>
-                <div className={`${styles.hexBadgeWrapper} ${styles.hexPurpleBorder}`}>
-                  <span className={styles.hexNumber}>03</span>
-                  <span className={styles.hexLabel}>SISTER SCHOOL<br />PARTNERSHIP</span>
-                </div>
-                <ul className={styles.connectBulletList}>
-                  <li>• Perjanjian kemitraan antarsekolah (MoU) di luar negeri</li>
-                  <li>• Pertukaran kurikulum & materi pembelajaran</li>
-                  <li>• Program kolaborasi tahunan antarsekolah mitra</li>
-                </ul>
-              </div>
-
-              {/* Column 4: ACADEMIC VISIT */}
-              <div className={styles.connectColumnCard}>
-                <div className={`${styles.hexBadgeWrapper} ${styles.hexGreenBorder}`}>
-                  <span className={styles.hexNumber}>04</span>
-                  <span className={styles.hexLabel}>ACADEMIC<br />VISIT</span>
-                </div>
-                <ul className={styles.connectBulletList}>
-                  <li>• Kunjungan ke universitas dan institusi riset kelas dunia</li>
-                  <li>• Diskusi dengan profesor & mahasiswa untuk studi lanjut</li>
-                  <li>• Pengenalan sistem perkuliahan luar negeri</li>
-                </ul>
-              </div>
-
-              {/* Column 5: JOINT LEARNING PROJECT */}
-              <div className={styles.connectColumnCard}>
-                <div className={`${styles.hexBadgeWrapper} ${styles.hexBlueBorder}`}>
-                  <span className={styles.hexNumber}>05</span>
-                  <span className={styles.hexLabel}>JOINT LEARNING<br />PROJECT</span>
-                </div>
-                <ul className={styles.connectBulletList}>
-                  <li>• Riset kolaboratif antara siswa antardua negara</li>
-                  <li>• Konferensi & presentasi proyek bersama</li>
-                  <li>• Publikasi hasil riset dalam bentuk buku atau jurnal</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className={styles.connectBottomBanner}>
-              <span>Connecting institutions, empowering generation for a brighter global future.</span>
+            <div className={styles.pillars}>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>01</div>
+                <h3>Learning with Purpose</h3>
+                <p>
+                  Program dirancang berdasarkan tema dan tujuan pembelajaran,
+                  bukan sekadar daftar destinasi.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>02</div>
+                <h3>Direct Exposure</h3>
+                <p>
+                  Siswa memperoleh kesempatan melihat lingkungan pendidikan,
+                  budaya, dan dunia profesional secara langsung.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>03</div>
+                <h3>Active Participation</h3>
+                <p>
+                  Peserta terlibat dalam diskusi, pertukaran budaya, observasi,
+                  dan proyek kolaboratif.
+                </p>
+              </article>
             </div>
           </div>
         </section>
 
-        {/* ===== 4. THE VALUE SECTION ===== */}
-        <section id="value" className={styles.theValueSection}>
-          <div className={styles.valueContainer}>
-            <div className={styles.valueHeader}>
-              <h2 className={styles.valueOrangeTitle}>THE VALUE</h2>
-              <h3 className={styles.valueDarkSubtitle}>Manfaat Nyata untuk Siswa, Sekolah, dan Orang Tua</h3>
+        {/* ===== EXPLORE ===== */}
+        <section className={styles.section} id="explore">
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>Explore</div>
+              <h2>Experience beyond the classroom.</h2>
+              <p>
+                Memberikan pengalaman belajar melalui perjalanan edukatif di
+                Indonesia maupun luar negeri.
+              </p>
             </div>
+            <div className={styles.programGrid}>
+              <article className={`${styles.programCard} ${styles.reveal}`}>
+                <div className={`${styles.programImg} ${styles.imgImmersion}`} />
+                <div className={styles.programBody}>
+                  <small>01 / IMMERSION</small>
+                  <h3>Learning Immersion</h3>
+                  <p>
+                    Pengalaman belajar dan interaksi langsung di sekolah,
+                    universitas, dan lingkungan masyarakat setempat.
+                  </p>
+                </div>
+              </article>
+              <article className={`${styles.programCard} ${styles.reveal}`}>
+                <div className={`${styles.programImg} ${styles.imgJourney}`} />
+                <div className={styles.programBody}>
+                  <small>02 / THEMATIC</small>
+                  <h3>Thematic Learning Journey</h3>
+                  <p>
+                    Eksplorasi tema budaya, teknologi, bisnis, industri, dan
+                    keberlanjutan melalui aktivitas terarah.
+                  </p>
+                </div>
+              </article>
+              <article className={`${styles.programCard} ${styles.reveal}`}>
+                <div className={`${styles.programImg} ${styles.imgSupport}`} />
+                <div className={styles.programBody}>
+                  <small>03 / COLLABORATION</small>
+                  <h3>Academic Event Support</h3>
+                  <p>
+                    Pendampingan perjalanan dan koordinasi logistik untuk
+                    kompetisi maupun kegiatan akademik internasional.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
 
-            <div className={styles.valueContentSplit}>
-              <div className={styles.valueBooksCol}>
-                <div className={styles.valueBooksFrame}>
-                  <Image
-                    src="/the-value-books.jpg"
-                    alt="Tangga menuju topi sarjana di atas tumpukan buku pendidikan - The Value Nexplora"
-                    fill
-                    sizes="(max-width: 900px) 100vw, 45vw"
-                    className={styles.valueBooksCover}
-                  />
+        {/* ===== PREPARE ===== */}
+        <section
+          className={`${styles.section} ${styles.sectionPaper}`}
+          id="prepare"
+        >
+          <div className={`${styles.container} ${styles.split}`}>
+            <div
+              className={`${styles.splitImage} ${styles.imgPrepare} ${styles.reveal}`}
+            />
+            <div className={`${styles.splitCopy} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>Prepare</div>
+              <h2>Grow for the future.</h2>
+              <p>
+                Mendampingi siswa dan orang tua merencanakan jalur pendidikan ke
+                luar negeri serta membangun kesiapan menghadapi lingkungan
+                global.
+              </p>
+              <div className={styles.featureList}>
+                <div className={styles.feature}>
+                  <div className={styles.featureIcon}>01</div>
+                  <div>
+                    <h3>Future Education Pathway</h3>
+                    <p>
+                      Mengeksplorasi pilihan studi, universitas, persyaratan
+                      pendaftaran, dan peluang beasiswa.
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.feature}>
+                  <div className={styles.featureIcon}>02</div>
+                  <div>
+                    <h3>Global Readiness</h3>
+                    <p>
+                      Mengembangkan wawasan lintas budaya, kemandirian,
+                      komunikasi, dan kemampuan beradaptasi.
+                    </p>
+                  </div>
+                </div>
+                <div className={styles.feature}>
+                  <div className={styles.featureIcon}>03</div>
+                  <div>
+                    <h3>Study Abroad Preparation</h3>
+                    <p>
+                      Pendampingan persiapan aplikasi universitas, dokumen,
+                      visa, hingga keberangkatan.
+                    </p>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className={styles.valueDetailsCol}>
-                {/* Block 1: Untuk Siswa */}
-                <div className={styles.valueBenefitBlock}>
-                  <h4 className={styles.valueBenefitTitle}>
-                    Membantu Siswa Berkembang dan Lebih Siap Menghadapi Masa Depan:
-                  </h4>
-                  <ul className={styles.valueBenefitList}>
-                    <li>• Menumbuhkan kemandirian dan rasa percaya diri siswa</li>
-                    <li>• Mengembangkan keterampilan komunikasi dan kemampuan beradaptasi</li>
-                    <li>• Mengenal budaya, lingkungan pendidikan, dan peluang studi di tingkat global</li>
-                  </ul>
-                </div>
+        {/* ===== CONNECT ===== */}
+        <section className={`${styles.section} ${styles.dark}`} id="connect">
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>Connect</div>
+              <h2>Build connections across cultures.</h2>
+              <p>
+                NEXPLORA membantu membuka peluang kolaborasi pendidikan antara
+                sekolah dan institusi di Indonesia dengan mitra pendidikan di
+                luar negeri.
+              </p>
+            </div>
+            <div className={styles.pillars}>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>01</div>
+                <h3>Student Exchange</h3>
+                <p>
+                  Pertemuan siswa, berbagi budaya, diskusi lintas budaya, dan
+                  kegiatan kolaboratif.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>02</div>
+                <h3>Teacher Development</h3>
+                <p>
+                  Pertukaran wawasan praktik pembelajaran dan pengembangan
+                  profesional pendidik.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>03</div>
+                <h3>Sister School Partnership</h3>
+                <p>
+                  Penjajakan hubungan antarsekolah dan perencanaan agenda
+                  kolaborasi.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>04</div>
+                <h3>Academic Visit</h3>
+                <p>
+                  Kunjungan ke sekolah atau universitas mitra serta diskusi
+                  sistem pendidikan.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>05</div>
+                <h3>Joint Learning Project</h3>
+                <p>
+                  Penyusunan proyek bersama, presentasi hasil, dan refleksi
+                  pembelajaran.
+                </p>
+              </article>
+              <article className={`${styles.pillar} ${styles.reveal}`}>
+                <div className={styles.num}>06</div>
+                <h3>Global Collaboration</h3>
+                <p>
+                  Membangun hubungan berkelanjutan melalui pengalaman dan tujuan
+                  bersama.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
 
-                {/* Block 2: Untuk Sekolah */}
-                <div className={styles.valueBenefitBlock}>
-                  <h4 className={styles.valueBenefitTitle}>
-                    Bagi Sekolah & Mitra, kami mendampingi dalam:
-                  </h4>
-                  <ul className={styles.valueBenefitList}>
-                    <li>• Perancangan kurikulum studi perjalanan yang relevan dengan kebutuhan pembelajaran serta target pendidikan institusi</li>
-                    <li>• Menjalin kerja sama yang bermakna dan berkelanjutan melalui program sekolah, universitas global, serta komunitas internasional</li>
-                    <li>• Dokumentasi proses pembelajaran melalui buku dokumentasi kegiatan, foto, project, dan video dokumenter yang dapat dimanfaatkan sekolah sebagai bukti pembelajaran serta modul dan portofolio promosi sekolah dengan outcome yang terukur.</li>
-                  </ul>
+        {/* ===== PROGRAM ===== */}
+        <section className={styles.section} id="program">
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>Programs</div>
+              <h2>Learning journeys designed around you.</h2>
+              <p>
+                Kami merancang perjalanan belajar bermakna yang menghubungkan
+                siswa dengan dunia pendidikan, industri, budaya, dan kehidupan
+                nyata.
+              </p>
+            </div>
+            <div className={styles.programGrid}>
+              <article className={`${styles.programCard} ${styles.reveal}`}>
+                <div className={`${styles.programImg} ${styles.imgCard1}`} />
+                <div className={styles.programBody}>
+                  <small>PROGRAM 01</small>
+                  <h3>Learning Immersion</h3>
+                  <p>
+                    Belajar dan berinteraksi langsung melalui kegiatan akademik,
+                    pertukaran budaya, dan pembelajaran kolaboratif.
+                  </p>
                 </div>
+              </article>
+              <article className={`${styles.programCard} ${styles.reveal}`}>
+                <div className={`${styles.programImg} ${styles.imgCard2}`} />
+                <div className={styles.programBody}>
+                  <small>PROGRAM 02</small>
+                  <h3>Thematic Learning Journey</h3>
+                  <p>
+                    Perjalanan belajar berbasis tema dengan tujuan belajar yang
+                    jelas dan aktivitas yang relevan.
+                  </p>
+                </div>
+              </article>
+              <article className={`${styles.programCard} ${styles.reveal}`}>
+                <div className={`${styles.programImg} ${styles.imgCard3}`} />
+                <div className={styles.programBody}>
+                  <small>SUPPORT SERVICE</small>
+                  <h3>Academic Event Support</h3>
+                  <p>
+                    Dukungan koordinasi perjalanan bagi kelompok siswa yang
+                    mengikuti kegiatan akademik internasional.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
 
-                {/* Block 3: Untuk Orang Tua */}
-                <div className={styles.valueBenefitBlock}>
-                  <h4 className={styles.valueBenefitTitle}>
-                    Bagi Orang Tua, memberi kepastian dan ketenangan hati:
-                  </h4>
-                  <ul className={styles.valueBenefitList}>
-                    <li>• Memberikan pemantauan berkala mengenai aktivitas dan kondisi putra-putri</li>
-                    <li>• Menjamin keselamatan dan kenyamanan dengan standar asuransi dan pendampingan</li>
-                    <li>• Menjadi investasi berharga untuk perkembangan masa depan pendidikan dan karier anak</li>
-                  </ul>
-                </div>
+        {/* ===== VALUE ===== */}
+        <section
+          className={`${styles.section} ${styles.sectionPaper}`}
+          id="value"
+        >
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>The value</div>
+              <h2>Manfaat nyata bagi siswa, sekolah, dan orang tua.</h2>
+              <p>Belajar, berkembang, dan lebih siap menghadapi masa depan.</p>
+            </div>
+            <div className={styles.valueGrid}>
+              <article className={`${styles.valueCard} ${styles.reveal}`}>
+                <h3>Untuk Siswa</h3>
+                <p>
+                  Belajar melalui pengalaman nyata dan memperluas perspektif.
+                </p>
+                <ul>
+                  <li>Memahami materi melalui pengalaman langsung.</li>
+                  <li>
+                    Mengembangkan kemandirian, komunikasi, dan adaptasi.
+                  </li>
+                  <li>Mengenal budaya dan peluang studi global.</li>
+                </ul>
+              </article>
+              <article className={`${styles.valueCard} ${styles.reveal}`}>
+                <h3>Untuk Sekolah</h3>
+                <p>Memperkuat mutu, profil, dan daya saing sekolah.</p>
+                <ul>
+                  <li>Pengayaan pembelajaran.</li>
+                  <li>Penguatan profil dan eksposur global.</li>
+                  <li>Dokumentasi praktik dan hasil pembelajaran.</li>
+                </ul>
+              </article>
+              <article className={`${styles.valueCard} ${styles.reveal}`}>
+                <h3>Untuk Orang Tua</h3>
+                <p>Pengalaman bermakna untuk bekal masa depan anak.</p>
+                <ul>
+                  <li>Mengenal dunia di luar lingkungan sehari-hari.</li>
+                  <li>Mendukung kepercayaan diri dan kedewasaan.</li>
+                  <li>Mengenali minat dan pilihan pendidikan.</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== CONTACT ===== */}
+        <section className={`${styles.section} ${styles.connect}`} id="contact">
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
+              <div className={styles.eyebrow}>
+                Let&apos;s create the next learning journey
               </div>
+              <h2>Start a meaningful journey with NEXPLORA.</h2>
+              <p>
+                Ceritakan kebutuhan sekolah atau keluarga Anda. Tim kami siap
+                membantu merancang pengalaman belajar yang tepat.
+              </p>
+            </div>
+            <div className={styles.contactLine}>
+              <a
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                href="https://wa.me/6281113057890"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp +62 811 1305 7890 ↗
+              </a>
+              <a
+                className={`${styles.btn} ${styles.btnOutline}`}
+                href="mailto:info@nexplora.co.id"
+              >
+                Email NEXPLORA
+              </a>
             </div>
           </div>
         </section>
       </main>
 
-      {/* ===== OFFICIAL FOOTER ===== */}
-      <footer id="contact" className={styles.officialFooter}>
-        <div className={styles.footerMain}>
-          <div className={styles.footerBrand}>
-            <Image
-              src="/nexplora-footer-logo-transparent.png"
-              alt="Nexplora - Experiential learning partner"
-              width={260}
-              height={108}
-              className={styles.footerLogoImg}
-            />
+      {/* ===== FOOTER ===== */}
+      <footer className={styles.footer}>
+        <div className={styles.container}>
+          <div className={styles.footerGrid}>
+            <div>
+              <div className={styles.footerBrand}>
+                <Image
+                  src="/nexplora-footer-logo-transparent.png"
+                  alt="NEXPLORA - Experiential Learning Partner"
+                  width={240}
+                  height={100}
+                  className={styles.footerLogo}
+                />
+              </div>
+              <p className={styles.footerAbout}>
+                Experiential Learning Partner. Purposeful learning, real-world
+                exposure, and meaningful connections.
+              </p>
+            </div>
+            <div>
+              <h4>Explore</h4>
+              <div className={styles.footerLinks}>
+                <a href="#about">About</a>
+                <a href="#explore">Explore</a>
+                <a href="#prepare">Prepare</a>
+                <a href="#connect">Connect</a>
+                <a href="#program">Program</a>
+                <a href="#value">Value</a>
+              </div>
+            </div>
+            <div>
+              <h4>Get in touch</h4>
+              <div className={styles.footerLinks}>
+                <a href="tel:+6281113057890">+62 811 1305 7890</a>
+                <a href="mailto:info@nexplora.co.id">info@nexplora.co.id</a>
+                <a href="https://www.nexplora.co.id">www.nexplora.co.id</a>
+                <p className={styles.footerAddress}>
+                  Bintaro Trade Center Blok C2 No. 21
+                  <br />
+                  Jl. Jend. Sudirman, Tangerang Selatan, Banten 15224
+                </p>
+              </div>
+            </div>
           </div>
-
-          <div className={styles.footerContactCol}>
-            <h3 className={styles.footerContactTitle}>
-              LET&apos;S CREATE THE NEXT LEARNING JOURNEY
-            </h3>
-            <ul className={styles.footerContactList}>
-              <li>
-                <a href="tel:+6281113057890" className={styles.contactItemLink}>
-                  <span className={styles.contactCircleIcon}>📞</span>
-                  <span>+62 811 1305 7890</span>
-                </a>
-              </li>
-              <li>
-                <a href="mailto:info@nexplora.co.id" className={styles.contactItemLink}>
-                  <span className={styles.contactCircleIcon}>✉️</span>
-                  <span>info@nexplora.co.id</span>
-                </a>
-              </li>
-              <li className={styles.contactItemAddress}>
-                <span className={styles.contactCircleIcon}>📍</span>
-                <div>
-                  <p>Bintaro Trade Center Blok C2 No. 21</p>
-                  <p>Jl. Jend. Sudirman, Tangerang Selatan, Banten 15224</p>
-                </div>
-              </li>
-              <li>
-                <a
-                  href="https://www.nexplora.co.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.contactItemLink}
-                >
-                  <span className={styles.contactCircleIcon}>🌐</span>
-                  <span>www.nexplora.co.id</span>
-                </a>
-              </li>
-            </ul>
+          <div className={styles.copyright}>
+            <span>© NEXPLORA • Experiential Learning Partner</span>
+            <span>Learning first. Destination follows.</span>
           </div>
-        </div>
-
-        <div className={styles.footerDivider} />
-
-        <div className={styles.footerBottom}>
-          <p>© NEXPLORA • Experiential Learning Partner</p>
         </div>
       </footer>
 
-      {/* ===== FLOATING WHATSAPP BUTTON ===== */}
-      <aside className={styles.floatingAction}>
-        <a
-          href="https://wa.me/6281113057890?text=Halo%20Nexplora,%20saya%20tertarik%20untuk%20konsultasi%20program%20edukasi"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.floatingWaBtn}
-          title="Chat on WhatsApp with Nexplora"
-        >
-          <span className={styles.floatingWaIcon}>💬</span>
-          <span className={styles.floatingWaText}>Quick Inquiry</span>
-        </a>
-      </aside>
-    </>
+      {/* ===== FLOATING WHATSAPP ===== */}
+      <a
+        className={styles.whatsapp}
+        href="https://wa.me/6281113057890"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat WhatsApp"
+      >
+        ✆
+      </a>
+    </div>
   );
 }
