@@ -13,8 +13,33 @@ const navItems = [
   { href: "#value", label: "Value" },
 ];
 
+const prepareItems = [
+  {
+    num: "01",
+    title: "Future Education Pathway",
+    desc: "Mengeksplorasi pilihan studi, universitas, persyaratan pendaftaran, dan peluang beasiswa.",
+    image: "/prepare-pathway.jpg",
+    alt: "Future Education Pathway",
+  },
+  {
+    num: "02",
+    title: "Global Readiness",
+    desc: "Mengembangkan wawasan lintas budaya, kemandirian, komunikasi, dan kemampuan beradaptasi.",
+    image: "/prepare-global.jpg",
+    alt: "Global Readiness",
+  },
+  {
+    num: "03",
+    title: "Study Abroad Preparation",
+    desc: "Pendampingan persiapan aplikasi universitas, dokumen, visa, hingga keberangkatan.",
+    image: "/prepare-study.jpg",
+    alt: "Study Abroad Preparation",
+  },
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activePrepare, setActivePrepare] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -165,43 +190,76 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ===== APPROACH ===== */}
-        <section className={`${styles.section} ${styles.dark}`} id="approach">
-          <div className={styles.container}>
-            <div className={`${styles.sectionHead} ${styles.reveal}`}>
-              <div className={styles.eyebrow}>Our approach</div>
-              <h2>Because every journey should have a purpose.</h2>
-              <p>
-                Perjalanan edukatif yang baik bukan sekadar mengunjungi banyak
-                tempat. Setiap aktivitas perlu memberikan alasan bagi siswa untuk
-                melihat, bertanya, mencoba, berinteraksi, dan memahami.
-              </p>
+        {/* ===== WHY NEXPLORA ===== */}
+        <section className={styles.whySection} id="why">
+          <div className={styles.whyContainer}>
+            <div className={styles.whyImgCol}>
+              <div className={styles.whyWaterfallFrame}>
+                <Image
+                  src="/why.jpg"
+                  alt="Rain Vortex Jewel Changi, Singapore"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 40vw"
+                  className={styles.whyWaterfallCover}
+                />
+              </div>
             </div>
-            <div className={styles.pillars}>
-              <article className={`${styles.pillar} ${styles.reveal}`}>
-                <div className={styles.num}>01</div>
-                <h3>Learning with Purpose</h3>
-                <p>
-                  Program dirancang berdasarkan tema dan tujuan pembelajaran,
-                  bukan sekadar daftar destinasi.
-                </p>
-              </article>
-              <article className={`${styles.pillar} ${styles.reveal}`}>
-                <div className={styles.num}>02</div>
-                <h3>Direct Exposure</h3>
-                <p>
-                  Siswa memperoleh kesempatan melihat lingkungan pendidikan,
-                  budaya, dan dunia profesional secara langsung.
-                </p>
-              </article>
-              <article className={`${styles.pillar} ${styles.reveal}`}>
-                <div className={styles.num}>03</div>
-                <h3>Active Participation</h3>
-                <p>
-                  Peserta terlibat dalam diskusi, pertukaran budaya, observasi,
-                  dan proyek kolaboratif.
-                </p>
-              </article>
+
+            <div className={styles.whyTextCol}>
+              <div className={styles.sectionBrandRow}>
+                <h2 className={styles.sectionBrandWord}>Why</h2>
+                <Image
+                  src="/nexplora-logo-transparent.png"
+                  alt="Nexplora"
+                  width={155}
+                  height={50}
+                  className={styles.inlineBrandLogo}
+                />
+              </div>
+
+              <h3 className={styles.whyOrangeHeading}>
+                Because Every Journey Should Have a Purpose
+              </h3>
+
+              <p className={styles.whyLeadText}>
+                Bagi kami, experiential learning bukan sekadar mengajak peserta
+                jalan-jalan ke luar negeri. Lebih dari itu, setiap program
+                dirancang sebagai sebuah proses belajar yang kontekstual,
+                terstruktur, mendalam, dan relevan.
+              </p>
+
+              <p className={styles.whyListHeading}>
+                4 Hal yang membuat kami berbeda:
+              </p>
+
+              <div className={styles.whyPointsStack}>
+                <div className={styles.whyPointItem}>
+                  <strong>1. Learning-driven Itinerary:</strong> Setiap
+                  destinasi, kunjungan, workshop, dan aktivitas memiliki tujuan
+                  pembelajaran yang jelas dan relevan bagi peserta didik.
+                </div>
+                <div className={styles.whyPointItem}>
+                  <strong>2. Direct Experience:</strong> Belajar secara langsung
+                  dari para praktisi, akademisi, figur inspiratif, komunitas
+                  lokal, serta lingkungan baru yang membuka wawasan.
+                </div>
+                <div className={styles.whyPointItem}>
+                  <strong>3. Facilitated Reflection:</strong> Peserta tidak
+                  hanya melihat dan mengalami, tetapi diajak untuk
+                  merefleksikan, mendiskusikan, dan merangkum pembelajaran yang
+                  didapat dalam bentuk portofolio perjalanan.
+                </div>
+                <div className={styles.whyPointItem}>
+                  <strong>4. Designed Around the School:</strong> Jadwal, tema,
+                  aktivitas, penginapan, dan durasi program disesuaikan dengan
+                  kebutuhan serta nilai-nilai sekolah.
+                </div>
+              </div>
+
+              <div className={styles.whyCalloutBanner}>
+                <p>Not your typical tour. Not your typical travel agent.</p>
+                <p>Programs designed around your school.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -260,11 +318,8 @@ export default function Home() {
           className={`${styles.section} ${styles.sectionPaper}`}
           id="prepare"
         >
-          <div className={`${styles.container} ${styles.split}`}>
-            <div
-              className={`${styles.splitImage} ${styles.imgPrepare} ${styles.reveal}`}
-            />
-            <div className={`${styles.splitCopy} ${styles.reveal}`}>
+          <div className={styles.container}>
+            <div className={`${styles.sectionHead} ${styles.reveal}`}>
               <div className={styles.eyebrow}>Prepare</div>
               <h2>Grow for the future.</h2>
               <p>
@@ -272,37 +327,56 @@ export default function Home() {
                 luar negeri serta membangun kesiapan menghadapi lingkungan
                 global.
               </p>
-              <div className={styles.featureList}>
-                <div className={styles.feature}>
-                  <div className={styles.featureIcon}>01</div>
-                  <div>
-                    <h3>Future Education Pathway</h3>
-                    <p>
-                      Mengeksplorasi pilihan studi, universitas, persyaratan
-                      pendaftaran, dan peluang beasiswa.
-                    </p>
+            </div>
+
+            <div className={styles.prepareShowcase}>
+              <div className={`${styles.prepareStage} ${styles.reveal}`}>
+                {prepareItems.map((item, index) => (
+                  <div
+                    key={item.title}
+                    className={`${styles.prepareSlide} ${
+                      activePrepare === index ? styles.prepareSlideActive : ""
+                    }`}
+                    aria-hidden={activePrepare !== index}
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.alt}
+                      fill
+                      sizes="(max-width: 900px) 100vw, 55vw"
+                      className={styles.prepareSlideImg}
+                    />
+                    <span className={styles.prepareSlideTag}>
+                      {item.title}
+                    </span>
                   </div>
-                </div>
-                <div className={styles.feature}>
-                  <div className={styles.featureIcon}>02</div>
-                  <div>
-                    <h3>Global Readiness</h3>
-                    <p>
-                      Mengembangkan wawasan lintas budaya, kemandirian,
-                      komunikasi, dan kemampuan beradaptasi.
-                    </p>
-                  </div>
-                </div>
-                <div className={styles.feature}>
-                  <div className={styles.featureIcon}>03</div>
-                  <div>
-                    <h3>Study Abroad Preparation</h3>
-                    <p>
-                      Pendampingan persiapan aplikasi universitas, dokumen,
-                      visa, hingga keberangkatan.
-                    </p>
-                  </div>
-                </div>
+                ))}
+              </div>
+
+              <div className={`${styles.prepareList} ${styles.reveal}`}>
+                {prepareItems.map((item, index) => (
+                  <button
+                    key={item.title}
+                    type="button"
+                    className={`${styles.prepareItem} ${
+                      activePrepare === index ? styles.prepareItemActive : ""
+                    }`}
+                    onClick={() => setActivePrepare(index)}
+                    onMouseEnter={() => setActivePrepare(index)}
+                    onFocus={() => setActivePrepare(index)}
+                    aria-pressed={activePrepare === index}
+                  >
+                    <span className={styles.featureIcon}>{item.num}</span>
+                    <span className={styles.prepareItemBody}>
+                      <span className={styles.prepareItemTitle}>
+                        {item.title}
+                      </span>
+                      <span className={styles.prepareItemDesc}>
+                        {item.desc}
+                      </span>
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
